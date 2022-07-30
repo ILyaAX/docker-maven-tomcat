@@ -1,5 +1,7 @@
 FROM tomcat:8.5-jdk8-corretto
-RUN yum check-update && yum install git -y && yum install install maven -y
+RUN yum check-update
+RUN yum install git -y
+RUN yum install install maven -y
 RUN mkdir /opt/app
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git /opt/app
 RUN mvn clean package --file /opt/app/pom.xml
