@@ -1,2 +1,3 @@
 # docker-maven-tomcat
-test 6 DevOpsSchool
+
+Package the Java application in a Docker container. The assembly process must also be carried out in a container.
