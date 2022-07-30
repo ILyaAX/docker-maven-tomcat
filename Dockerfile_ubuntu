@@ -1,0 +1,12 @@
+FROM ubuntu:20.04
+ENV TZ=Asia/Novosibirsk
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt update
+RUN apt install git -y && apt install default-jdk -y && apt install maven -y && apt install wget -y
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.0.23/bin/apache-tomcat-10.0.23.tar.gz -P /tmp
+RUN tar -xvzf /tmp/apache-tomcat-10.0.23.tar.gz -C /opt
+RUN mkdir /opt/app
+RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git /opt/app
+RUN mvn clean package --file /opt/app/pom.xml && cp /opt/app/target/hello-1.0.war /opt/apache-tomcat-10.0.23/webapps
+EXPOSE 8080
+CMD ["/opt/apache-tomcat-10.0.23/bin/catalina.sh", "run"]
